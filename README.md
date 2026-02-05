@@ -1416,18 +1416,18 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 ## 📞 Contact
 
 **Project Maintainers:**
-- Lead Developer: [@yourusername](https://github.com/yourusername)
+- Lead Developer: [@sadraoui-medamin](https://github.com/sadraoui-medamin)
 - Email: hello@projectflow.com
 
 **Community:**
-- GitHub Discussions: [ProjectFlow Discussions](https://github.com/yourusername/projectflow/discussions)
+- GitHub Discussions: [ProjectFlow Discussions](https://github.com/sadraoui-medamin/projectflow/discussions)
 - Discord Server: [Join our Discord](https://discord.gg/projectflow)
 - Twitter: [@ProjectFlow](https://twitter.com/projectflow)
 
 **Support:**
 - Documentation: [docs.projectflow.com](https://docs.projectflow.com)
 - Bug Reports: [GitHub Issues](https://github.com/yourusername/projectflow/issues)
-- Feature Requests: [GitHub Discussions](https://github.com/yourusername/projectflow/discussions)
+- Feature Requests: [GitHub Discussions](https://github.com/sadraoui-medamin/projectflow/discussions)
 
 ---
 
@@ -1462,6 +1462,6 @@ Special thanks to:
 
 If you found this project helpful, please consider giving it a ⭐!
 
-[⬆ Back to Top](#-projectflow---saas-project-management-system)
+[⬆ Back to Top](#-sadraoui-medamin---saas-project-management-system)
 
 </div>
