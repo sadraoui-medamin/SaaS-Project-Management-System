@@ -1,0 +1,11 @@
+﻿{
+  "name": "projectflow-task-service",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "node src/server.ts",
+    "start": "node src/server.ts",
+    "migrate": "echo 'task migrate placeholder'",
+    "seed": "echo 'task seed placeholder'"
+  }
+}
