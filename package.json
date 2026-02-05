@@ -1,0 +1,15 @@
+﻿{
+  "name": "projectflow",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "frontend",
+    "services/*",
+    "shared"
+  ],
+  "scripts": {
+    "lint": "echo 'Root lint placeholder'",
+    "format": "echo 'Root format placeholder'",
+    "test": "echo 'Root test placeholder'"
+  }
+}
