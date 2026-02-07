@@ -1,4 +1,5 @@
 ﻿import "./styles/index.css";
+import { useEffect, useState } from "react";
 
 const features = [
   {
@@ -104,9 +105,29 @@ const pricing = [
   },
 ];
 
+const getPreferredTheme = () => {
+  if (typeof window === "undefined") {
+    return "dark";
+  }
+  const stored = window.localStorage.getItem("projectflow-theme");
+  if (stored === "light" || stored === "dark") {
+    return stored;
+  }
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+};
+
 export default function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [modal, setModal] = useState<"signin" | "signup" | null>(null);
+  const [theme, setTheme] = useState<"light" | "dark">(getPreferredTheme());
+
+  useEffect(() => {
+    document.body.dataset.theme = theme;
+    window.localStorage.setItem("projectflow-theme", theme);
+  }, [theme]);
+
   return (
-    <div className="app">
+    <div className={`app ${menuOpen ? "menu-open" : ""}`}>
       <header className="topbar">
         <div className="logo">ProjectFlow</div>
         <nav className="nav">
@@ -116,8 +137,49 @@ export default function App() {
           <a href="#contact">Contact</a>
         </nav>
         <div className="nav-cta">
-          <button className="ghost">Sign in</button>
-          <button className="primary">Request a demo</button>
+          <button className="ghost" onClick={() => setModal("signin")}>Sign in</button>
+          <button className="primary" onClick={() => setModal("signup")}>Request a demo</button>
+          <button className="theme-toggle" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+            {theme === "dark" ? "Light mode" : "Dark mode"}
+          </button>
+        </div>
+        <button
+          className="menu-toggle"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span />
+          <span />
+        </button>
+        <div className="mobile-menu">
+          <a href="#features" onClick={() => setMenuOpen(false)}>
+            Features
+          </a>
+          <a href="#workflow" onClick={() => setMenuOpen(false)}>
+            Workflow
+          </a>
+          <a href="#pricing" onClick={() => setMenuOpen(false)}>
+            Pricing
+          </a>
+          <a
+            href="#auth"
+            onClick={() => {
+              setMenuOpen(false);
+              setModal("signin");
+            }}
+          >
+            Sign in
+          </a>
+          <a href="#contact" onClick={() => setMenuOpen(false)}>
+            Contact
+          </a>
+          <div className="mobile-actions">
+            <button className="ghost" onClick={() => setModal("signin")}>Sign in</button>
+            <button className="primary" onClick={() => setModal("signup")}>Request a demo</button>
+            <button className="theme-toggle" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+              {theme === "dark" ? "Light mode" : "Dark mode"}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -131,7 +193,7 @@ export default function App() {
               deliverables, people, and data aligned across every initiative.
             </p>
             <div className="hero-actions">
-              <button className="primary">Start free workspace</button>
+              <button className="primary" onClick={() => setModal("signup")}>Start free workspace</button>
               <button className="outline">See product tour</button>
             </div>
             <div className="hero-meta">
@@ -288,7 +350,7 @@ export default function App() {
             </p>
           </div>
           <div className="cta-actions">
-            <button className="primary">Book a demo</button>
+            <button className="primary" onClick={() => setModal("signup")}>Book a demo</button>
             <button className="ghost">Download overview</button>
           </div>
         </section>
@@ -303,6 +365,9 @@ export default function App() {
           <a href="#features">Features</a>
           <a href="#workflow">Workflow</a>
           <a href="#pricing">Pricing</a>
+          <button className="link" onClick={() => setModal("signin")}>
+            Sign in
+          </button>
           <a href="#contact">Contact</a>
         </div>
         <div>
@@ -310,6 +375,65 @@ export default function App() {
           <span>San Francisco · Remote first</span>
         </div>
       </footer>
+
+      {modal && (
+        <div className="modal-backdrop" onClick={() => setModal(null)}>
+          <div className="modal" onClick={(event) => event.stopPropagation()}>
+            <div className="modal-header">
+              <div>
+                <p className="eyebrow">ProjectFlow</p>
+                <h3>{modal === "signin" ? "Sign in" : "Create account"}</h3>
+              </div>
+              <button className="ghost" onClick={() => setModal(null)} aria-label="Close modal">
+                Close
+              </button>
+            </div>
+            <form className="form">
+              {modal === "signup" && (
+                <label>
+                  Full name
+                  <input type="text" placeholder="Jane Doe" />
+                </label>
+              )}
+              <label>
+                Email
+                <input type="email" placeholder="you@company.com" />
+              </label>
+              <label>
+                Password
+                <input type="password" placeholder="••••••••" />
+              </label>
+              <button type="button" className="primary">
+                {modal === "signin" ? "Continue" : "Create workspace"}
+              </button>
+              {modal === "signin" ? (
+                <button type="button" className="ghost">
+                  Forgot password?
+                </button>
+              ) : (
+                <span className="hint">No credit card required.</span>
+              )}
+            </form>
+            <div className="modal-footer">
+              {modal === "signin" ? (
+                <span>
+                  New here?{" "}
+                  <button className="link" onClick={() => setModal("signup")}>
+                    Create an account
+                  </button>
+                </span>
+              ) : (
+                <span>
+                  Already have an account?{" "}
+                  <button className="link" onClick={() => setModal("signin")}>
+                    Sign in
+                  </button>
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
